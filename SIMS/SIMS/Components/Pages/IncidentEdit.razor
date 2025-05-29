@@ -59,7 +59,6 @@
     private int id = 0;
 
     Incident incident = new Incident();
-    User user = new User();
     string[] incidenttypeArray { get; set; } = new[] { "Ticket", "Issue", "Informational", "Problem" };
 
     string escalateMessage = "";
@@ -94,6 +93,6 @@
     {
         escalateMessage = $"Escalating incident Titled \'{incident.Title}\' with ID \'{incident.Resource_id}\'";
         var client = new CloudFunctionClient();
-        await client.StopInstanceAsync(user.Email, incident.Resource_id);
+        await client.StopInstanceAsync(incident.Resource_id);
     }
 }
