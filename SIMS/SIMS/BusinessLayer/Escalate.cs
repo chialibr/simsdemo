@@ -16,14 +16,13 @@ public class CloudFunctionClient
         _httpClient = new HttpClient();
     }
 
-    public async Task StopInstanceAsync(string recipient, string instanceId)
+    public async Task StopInstanceAsync(string instanceId)
     {
         var payload = new
         {
             project_id = "fhstp-460810",
             zone = "europe-west1-d",
             resource_id = instanceId,
-            recipient = recipient
         };
         var json = JsonSerializer.Serialize(payload);
         using var content = new StringContent(json, Encoding.UTF8, "application/json");
