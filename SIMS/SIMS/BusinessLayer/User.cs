@@ -9,6 +9,7 @@ namespace SIMS
         public string Username { get; set; } = "";
         public string PWDHash { get; set; } = "";
         public bool IsAdmin { get; set; } = false;
+        public string Email { get; set; } = "";
         public DateTime LastLogin { get; set; } = DateTime.Now;
 
         public User() { }
@@ -29,6 +30,7 @@ namespace SIMS
                             IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
                             Username = (string)reader["Username"];
                             PWDHash = (string)reader["PWDHash"];
+                            Email = (string)reader["Email"];
                             LastLogin = Convert.ToDateTime(reader["LastLogin"]);
                         }
                     }
@@ -56,6 +58,7 @@ namespace SIMS
                                 IsAdmin = Convert.ToBoolean(reader["IsAdmin"]),
                                 Username = (string)reader["Username"],
                                 PWDHash = (string)reader["PWDHash"],
+                                Email = (string)reader["Email"],
                                 LastLogin = Convert.ToDateTime(reader["LastLogin"])
                             };
                             result.Add(item);
@@ -75,13 +78,13 @@ namespace SIMS
                 string sql = "";
                 if (User_id == 0)
                 {
-                    sql += $"insert into sims.simsuser(IsAdmin, IsActive, Username, PWDHash, LastLogin) ";
-                    sql += $"VALUES (@IsAdmin, @IsActive, @Username, @PWDHash, @LastLogin);";
+                    sql += $"insert into sims.simsuser(IsAdmin, IsActive, Username, PWDHash, Email, LastLogin) ";
+                    sql += $"VALUES (@IsAdmin, @IsActive, @Username, @PWDHash, @Email, @LastLogin);";
                 }
                 else
                 {
-                    sql += $"update sims.simsuser set IsActive = @IsActive, IsAdmin = @IsAdmin, Username = @Username, ";
-                    sql += $"PWDHash = @PWDHash, LastLogin = @LastLogin where User_id = {User_id};";
+                    sql += $"update sims.simsuser set IsActive = @IsActive, IsAdmin = @IsAdmin, Username = @Username, Email = @Email, ";
+                    sql += $"PWDHash = @PWDHash, LastLogin = @LastLogin, Email = @Email where User_id = {User_id};";
                 }
                 using (NpgsqlCommand cmd = new NpgsqlCommand(sql, db))
                 {
@@ -89,6 +92,7 @@ namespace SIMS
                     cmd.Parameters.AddWithValue("IsAdmin", IsAdmin);
                     cmd.Parameters.AddWithValue("Username", Username);
                     cmd.Parameters.AddWithValue("PWDHash", PWDHash);
+                    cmd.Parameters.AddWithValue("Email", Email);
                     cmd.Parameters.AddWithValue("LastLogin", LastLogin);
                     cmd.ExecuteNonQuery();
                 }
