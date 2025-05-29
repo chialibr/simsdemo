@@ -16,6 +16,10 @@
         <label for="title">Username:</label>
         <input type="text" id="title" class="form-control" @bind-value="user.Username" />
     </div>
+    <div class="form-group" style="margin-bottom: 10px;">
+        <label for="email">Email:</label>
+        <input type="text" id="email" class="form-control" @bind-value="user.Email" />
+    </div>
     <div class="form-group" style="margin-bottom: 10px; margin-top: 10px;">
         <label for="closed">Admin:</label>
         <input type="checkbox" id="closed" @bind="user.IsAdmin">

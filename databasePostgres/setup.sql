@@ -15,7 +15,8 @@ CREATE TABLE incident (
     reported_at TIMESTAMP,
     description TEXT,
     title VARCHAR(100),
-    incident_type_id INT REFERENCES incidentType(incident_type_id)
+    incident_type_id INT REFERENCES incidentType(incident_type_id),
+    resource_id VARCHAR(250)
 );
 
 CREATE TABLE simsuser (
@@ -24,7 +25,8 @@ CREATE TABLE simsuser (
     IsAdmin BOOLEAN DEFAULT FALSE,
     LastLogin TIMESTAMP,
     Username VARCHAR(50),
-    PWDHash VARCHAR(200)
+    PWDHash VARCHAR(200),
+    Email VARCHAR(200)
 );
 
 GRANT USAGE ON SCHEMA sims TO appuser;
@@ -40,13 +42,13 @@ INSERT INTO sims.incidenttype (name) VALUES
    ('problem');
 
 INSERT INTO sims.incident(
-	reporter, reported_at, description, title, incident_type_id)
-	VALUES ('Admin', CURRENT_TIMESTAMP, 'The whole internet is down,', 'Internet down', '1');
+	reporter, reported_at, description, title, incident_type_id, resource_id)
+	VALUES ('Admin', CURRENT_TIMESTAMP, 'The whole internet is down,', 'Internet down', '1', 'instance-20250524-135817');
 
 INSERT INTO sims.simsuser(
-	IsAdmin, IsActive, Username, PWDHash, LastLogin)
-	VALUES (true, true, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', CURRENT_TIMESTAMP);
+	IsAdmin, IsActive, Username, PWDHash, Email, LastLogin)
+	VALUES (true, true, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'is231017@fhstp.ac.at', CURRENT_TIMESTAMP);
 
 INSERT INTO sims.simsuser(
-	IsAdmin, IsActive, Username, PWDHash, LastLogin)
-	VALUES (false, true, 'user', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', CURRENT_TIMESTAMP);
+	IsAdmin, IsActive, Username, PWDHash, Email, LastLogin)
+	VALUES (false, true, 'user', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', 'is231031@fhstp.ac.at', CURRENT_TIMESTAMP);
